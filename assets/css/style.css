@@ -1,3 +1,4 @@
+```css
 :root {
     --pink: #ef476f;
     --orange: #ff9f43;
@@ -28,20 +29,27 @@ a {
 
 img {
     max-width: 100%;
+    vertical-align: middle;
 }
 
-/* =========================
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
    CONTAINER
-========================= */
+========================================================= */
 
 .container {
     width: min(90%, 1200px);
     margin: auto;
 }
 
-/* =========================
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header {
     height: 76px;
@@ -80,6 +88,10 @@ nav {
     font-size: 14px;
 }
 
+nav a {
+    transition: color 0.3s ease;
+}
+
 nav a:hover {
     color: var(--orange);
 }
@@ -96,6 +108,14 @@ nav a:hover {
     color: #fff;
 }
 
+.call {
+    transition: 0.3s ease;
+}
+
+.call:hover {
+    background: var(--orange);
+}
+
 .menu {
     display: none;
     background: none;
@@ -105,9 +125,10 @@ nav a:hover {
     cursor: pointer;
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero,
 .pagehero {
@@ -145,6 +166,7 @@ h2 {
         var(--pink),
         var(--orange)
     );
+
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
@@ -169,6 +191,15 @@ h2 {
     margin-top: 25px;
 }
 
+.btn {
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
 .whatsapp {
     background: #25d366;
     color: white;
@@ -182,9 +213,10 @@ h2 {
     font-size: 14px;
 }
 
-/* =========================
+
+/* =========================================================
    SECTIONS
-========================= */
+========================================================= */
 
 .section {
     padding: 90px 0;
@@ -194,9 +226,10 @@ h2 {
     background: var(--cream);
 }
 
-/* =========================
+
+/* =========================================================
    INTRO / ABOUT
-========================= */
+========================================================= */
 
 .intro,
 .about {
@@ -217,45 +250,55 @@ h2 {
     color: var(--gray);
 }
 
-/* =========================
-   IMAGE PLACEHOLDER
-========================= */
+
+/* =========================================================
+   BIG PHOTO
+   THIS IMAGE IS COMPLETELY SEPARATE FROM SLIDESHOW
+========================================================= */
 
 .photo-placeholder {
     width: 100%;
     background: #eee0d7;
-    border: 2px dashed #c6aaa0;
+    border: none;
     color: #876f66;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-align: center;
     overflow: hidden;
 }
-
-/* Main large image */
 
 .photo-placeholder.big {
     width: 100%;
     height: 430px;
     min-height: 0;
     border-radius: 18px;
+    overflow: hidden;
 }
 
-/* Actual image inside placeholder */
-
-.photo-placeholder img {
+.photo-placeholder.big img {
     width: 100%;
     height: 100%;
+
     display: block;
+
     object-fit: cover;
     object-position: center;
+
+    position: static;
+
+    opacity: 1;
+    visibility: visible;
+
     border-radius: 18px;
 }
 
-/* =========================
+
+/* =========================================================
    TICKS
-========================= */
+========================================================= */
 
 .ticks {
     display: grid;
@@ -269,9 +312,14 @@ h2 {
     font-weight: 700;
 }
 
-/* =========================
+.textlink:hover {
+    color: var(--orange);
+}
+
+
+/* =========================================================
    SECTION HEADING
-========================= */
+========================================================= */
 
 .heading {
     text-align: center;
@@ -288,16 +336,19 @@ h2 {
     color: var(--gray);
 }
 
-/* =========================
-   CARDS
-========================= */
+
+/* =========================================================
+   SERVICE CARDS
+========================================================= */
 
 .cards {
     display: grid;
+
     grid-template-columns: repeat(
         auto-fit,
         minmax(250px, 1fr)
     );
+
     gap: 22px;
 }
 
@@ -305,42 +356,171 @@ h2 {
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
+
     box-shadow: 0 8px 28px #00000012;
-    transition: 0.3s;
+
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-7px);
 }
 
-/* Card image container */
+
+/* =========================================================
+   SERVICE IMAGE
+========================================================= */
 
 .card .image {
     height: 210px;
+
     background: linear-gradient(
         135deg,
         #eee0d7,
         #f7f3ef
     );
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: #876f66;
     text-align: center;
+
     overflow: hidden;
 }
 
-/* Images inside cards */
 
-.card .image img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
+/* =========================================================
+   SLIDESHOW CONTAINER
+========================================================= */
+
+.card .image.slideshow {
+    position: relative;
+    overflow: hidden;
 }
 
-/* Card content */
+
+/* =========================================================
+   SLIDES
+========================================================= */
+
+.card .image.slideshow .slide {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.3s ease;
+}
+
+.card .image.slideshow .slide.active {
+    opacity: 1;
+    visibility: visible;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   SLIDER ARROWS
+========================================================= */
+
+.card .image.slideshow .slide-btn {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.card .image.slideshow .slide-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.card .image.slideshow .slide-btn:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.card .image.slideshow .prev {
+    left: 10px;
+}
+
+.card .image.slideshow .next {
+    right: 10px;
+}
+
+
+/* =========================================================
+   IMAGE COUNTER
+========================================================= */
+
+.card .image.slideshow .slide-counter {
+    position: absolute;
+
+    left: 50%;
+    bottom: 8px;
+
+    transform: translateX(-50%);
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: #fff;
+
+    padding: 3px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
 
 .card .content {
     padding: 23px;
@@ -362,26 +542,41 @@ h2 {
     line-height: 1.7;
 }
 
-.card button {
+.card .book-service {
     border: 0;
     background: none;
+
     color: var(--pink);
+
     font-weight: bold;
+
     cursor: pointer;
+
+    padding: 0;
+
+    font-family: inherit;
+
+    transition: color 0.3s ease;
 }
 
-/* =========================
+.card .book-service:hover {
+    color: var(--orange);
+}
+
+
+/* =========================================================
    CENTER
-========================= */
+========================================================= */
 
 .center {
     text-align: center;
     margin-top: 35px;
 }
 
-/* =========================
+
+/* =========================================================
    DARK SECTION
-========================= */
+========================================================= */
 
 .dark {
     background: #171717;
@@ -392,9 +587,10 @@ h2 {
     color: #fff;
 }
 
-/* =========================
+
+/* =========================================================
    FEATURES
-========================= */
+========================================================= */
 
 .features,
 .steps {
@@ -405,9 +601,19 @@ h2 {
 
 .features article {
     border: 1px solid #333;
+
     padding: 30px;
+
     text-align: center;
+
     border-radius: 14px;
+
+    transition: 0.3s ease;
+}
+
+.features article:hover {
+    transform: translateY(-5px);
+    border-color: #555;
 }
 
 .features article:first-letter {
@@ -418,14 +624,23 @@ h2 {
     color: #aaa;
 }
 
-/* =========================
+
+/* =========================================================
    STEPS
-========================= */
+========================================================= */
 
 .steps article {
     padding: 28px;
+
     background: var(--cream);
+
     border-radius: 14px;
+
+    transition: 0.3s ease;
+}
+
+.steps article:hover {
+    transform: translateY(-5px);
 }
 
 .steps b {
@@ -433,9 +648,10 @@ h2 {
     color: var(--pink);
 }
 
-/* =========================
+
+/* =========================================================
    PAGE HERO
-========================= */
+========================================================= */
 
 .pagehero {
     padding: 90px 0;
@@ -447,9 +663,10 @@ h2 {
     margin: 10px;
 }
 
-/* =========================
+
+/* =========================================================
    FILTERS
-========================= */
+========================================================= */
 
 .filters {
     text-align: center;
@@ -458,11 +675,18 @@ h2 {
 
 .filters button {
     border: 1px solid #ddd;
+
     background: #fff;
+
     padding: 10px 16px;
+
     border-radius: 22px;
+
     margin: 4px;
+
     cursor: pointer;
+
+    transition: 0.3s ease;
 }
 
 .filters .active,
@@ -471,46 +695,55 @@ h2 {
     color: #fff;
 }
 
-/* =========================
+
+/* =========================================================
    GALLERY
-========================= */
+========================================================= */
 
 .gallery {
     display: grid;
+
     grid-template-columns: repeat(
         auto-fit,
         minmax(250px, 1fr)
     );
+
     gap: 18px;
 }
 
-/* Gallery item */
-
 .gallery .item {
     height: 260px;
+
     background: #eee0d7;
-    border: 2px dashed #c6aaa0;
+
+    border: none;
+
     border-radius: 14px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     color: #876f66;
+
     overflow: hidden;
 }
-
-/* Gallery images */
 
 .gallery .item img {
     width: 100%;
     height: 100%;
+
     display: block;
+
     object-fit: cover;
     object-position: center;
 }
 
-/* =========================
-   CONTACT PAGE
-========================= */
+
+/* =========================================================
+   CONTACT
+========================================================= */
 
 .contact-page {
     background: var(--cream);
@@ -518,25 +751,48 @@ h2 {
 
 .contactgrid {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 50px;
 }
 
 .contactgrid form {
     background: #fff;
+
     padding: 35px;
+
     border-radius: 16px;
+
+    box-shadow: 0 8px 28px #00000010;
 }
 
 .contactgrid input,
 .contactgrid select,
 .contactgrid textarea {
     width: 100%;
+
     padding: 13px;
+
     margin: 8px 0;
+
     border: 1px solid #ddd;
+
     border-radius: 8px;
+
     font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: border-color 0.3s ease;
+}
+
+.contactgrid input:focus,
+.contactgrid select:focus,
+.contactgrid textarea:focus {
+    border-color: var(--pink);
 }
 
 .contactgrid textarea {
@@ -544,27 +800,41 @@ h2 {
     resize: vertical;
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer {
     background: #101010;
+
     color: #fff;
+
     padding-top: 55px;
 }
 
 .footer {
     display: grid;
+
     grid-template-columns: 2fr 1fr 1fr;
+
     gap: 40px;
+
     padding-bottom: 45px;
 }
 
 .footer a {
     display: block;
+
     color: #bbb;
+
     margin: 8px 0;
+
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--orange);
 }
 
 .footer p {
@@ -573,43 +843,69 @@ footer {
 
 .copyright {
     text-align: center;
+
     padding: 18px;
+
     border-top: 1px solid #292929;
+
     color: #777;
+
     font-size: 12px;
 }
 
-/* =========================
+
+/* =========================================================
    FLOATING WHATSAPP
-========================= */
+========================================================= */
 
 .floating {
     position: fixed;
+
     right: 20px;
     bottom: 20px;
+
     background: #25d366;
+
     color: #fff;
+
     padding: 14px 18px;
+
     border-radius: 30px;
+
     box-shadow: 0 5px 20px #0005;
+
     z-index: 99;
+
+    transition: 0.3s ease;
 }
 
-/* =========================
+.floating:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
 
 @media (max-width: 800px) {
 
     nav {
         display: none;
+
         position: absolute;
+
         top: 76px;
         left: 0;
+
         width: 100%;
+
         background: #151515;
+
         flex-direction: column;
+
         text-align: center;
+
         padding: 25px;
     }
 
@@ -648,8 +944,6 @@ footer {
         font-size: 40px;
     }
 
-    /* Make large image responsive */
-
     .photo-placeholder.big {
         height: 400px;
     }
@@ -659,9 +953,10 @@ footer {
     }
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 500px) {
 
@@ -694,19 +989,31 @@ footer {
         font-size: 34px;
     }
 
-    /* Mobile main image */
-
     .photo-placeholder.big {
         height: 300px;
     }
-
-    /* Mobile card images */
 
     .card .image {
         height: 200px;
     }
 
-    /* Mobile gallery */
+    .card .image.slideshow {
+        height: 200px;
+    }
+
+    .card .image.slideshow .slide-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .card .image.slideshow .prev {
+        left: 8px;
+    }
+
+    .card .image.slideshow .next {
+        right: 8px;
+    }
 
     .gallery {
         grid-template-columns: 1fr;
@@ -719,6 +1026,8 @@ footer {
     .floating {
         right: 15px;
         bottom: 15px;
+
         padding: 12px 16px;
     }
 }
+```
